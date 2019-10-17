@@ -9,6 +9,7 @@ namespace TestNinja.Fundamentals
 
         public event EventHandler<Guid> ErrorLogged;
 
+        private Guid _errorId;
         public void Log(string error)
         {
             if (String.IsNullOrWhiteSpace(error))
@@ -19,7 +20,12 @@ namespace TestNinja.Fundamentals
             // Write the log to a storage
             // ...
 
-            //ErrorLogged?.Invoke(this, Guid.NewGuid());
+            _errorId = Guid.NewGuid();
+            OnErrorLogged(Guid.NewGuid());
         }
+        protected virtual void OnErrorLogged(Guid errorId)
+        {
+            ErrorLogged?.Invoke(this, _errorId);
+        }        
     }
 }
