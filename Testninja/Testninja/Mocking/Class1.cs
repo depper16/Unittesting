@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Testninja.Mocking
 {
-    class Class1
+    public static void Main()
     {
+        var service = new VideoService();
+        var title = service.ReadVideoTitle(new FakeFileReader());
     }
+    
+   
 }
