@@ -6,16 +6,12 @@ namespace TestNinja.Mocking
 {
     public static class BookingHelper
     {
-        public static string OverlappingBookingsExist(Booking booking)
+        public static string OverlappingBookingsExist(Booking booking, IBookingRepository repository)
         {
             if (booking.Status == "Cancelled")
                 return string.Empty;
 
-            var unitOfWork = new UnitOfWork();
-            var bookings =
-                unitOfWork.Query<Booking>()
-                    .Where(
-                        b => b.Id != booking.Id && b.Status != "Cancelled");
+            var bookings = repository.GetActiveBookings(booking.Id);
 
             var overlappingBooking =
                 bookings.FirstOrDefault(
@@ -24,6 +20,8 @@ namespace TestNinja.Mocking
                         && booking.ArrivalDate < b.DepartureDate
                         || booking.DepartureDate < b.ArrivalDate
                         && booking.DepartureDate <= b.DepartureDate);
+            return overlappingBooking == null ? string.Empty : overlappingBooking.Reference;
+
         }
     }
 
