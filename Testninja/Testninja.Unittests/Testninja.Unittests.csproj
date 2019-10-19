@@ -69,6 +69,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="mocking\BookingHelperTests.cs" />
+    <Compile Include="mocking\EmployeeControllerTests.cs" />
     <Compile Include="mocking\InstallerHelperTests.cs" />
     <Compile Include="mocking\ProductTests.cs" />
     <Compile Include="mocking\OrderServiceTests.cs" />
